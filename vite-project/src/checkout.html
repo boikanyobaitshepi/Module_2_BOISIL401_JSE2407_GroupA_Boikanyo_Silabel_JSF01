@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+    <header>
+        <!-- Same header as in the main page -->
+    </header>
+
+    <main class="container mx-auto p-4" x-data="checkout()">
+        <h1 class="text-3xl font-bold mb-6">Checkout</h1>
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <form @submit.prevent="processOrder">
+                <div class="mb-4">
+                    <label for="name" class="block mb-2">Full Name</label>
+                    <input type="text" id="name" x-model="form.name" required class="w-full px-3 py-2 border rounded">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block mb-2">Email</label>
+                    <input type="email" id="email" x-model="form.email" required class="w-full px-3 py-2 border rounded">
+                </div>
+                <div class="mb-4">
+                    <label for="address" class="block mb-2">Address</label>
+                    <textarea id="address" x-model="form.address" required class="w-full px-3 py-2 border rounded"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="card" class="block mb-2">Card Number</label>
+                    <input type="text" id="card" x-model="form.card" required class="w-full px-3 py-2 border rounded">
+                </div>
+                <button 
+                    type="submit"
+                    class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+                >
+                    Place Order
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Same footer as in the main page -->
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
