@@ -11,10 +11,10 @@ function productListing() {
           console.log('Added to cart:', product);
           this.$dispatch('notify', { message: 'Added to cart!' });
       },
-      addToWatchlist(product) {
-          // Implement add to watchlist logic
-          console.log('Added to watchlist:', product);
-          this.$dispatch('notify', { message: 'Added to watchlist!' });
+      addToWishlist(product) {
+          // Implement add to wishlist logic
+          console.log('Added to wishlist:', product);
+          this.$dispatch('notify', { message: 'Added to wishlist!' });
       }
   }
 }
@@ -55,28 +55,9 @@ function cart() {
       removeItem(item) {
           this.items = this.items.filter(i => i.id !== item.id);
       },
-      goToCheckout() {
-          window.location.href = 'checkout.html';
-      }
+      
   }
-}
 
-// Checkout page
-function checkout() {
-  return {
-      form: {
-          name: '',
-          email: '',
-          address: '',
-          card: ''
-      },
-      processOrder() {
-          // Implement order processing logic
-          console.log('Order processed:', this.form);
-          alert('Order placed successfully!');
-          // Redirect to a thank you page or clear cart
-      }
-  }
 }
 
 // Toast notification
@@ -97,6 +78,5 @@ document.addEventListener('alpine:init', () => {
   Alpine.data('productListing', productListing);
   Alpine.data('productDetail', productDetail);
   Alpine.data('cart', cart);
-  Alpine.data('checkout', checkout);
   Alpine.data('toast', toast);
 });

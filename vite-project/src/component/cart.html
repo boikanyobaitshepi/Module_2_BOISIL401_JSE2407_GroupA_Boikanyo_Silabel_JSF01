@@ -18,7 +18,7 @@
           <nav>
             <ul class="flex space-x-4 items-center">
               <li><a href="/" class="hover:text-gray-300">Home</a></li>
-              <li><a href="#" class="hover:text-gray-300">Categories</a></li>
+          
               <li>
                 <a href="/cart.html" class="hover:text-gray-300 flex items-center">
                   <img src="https://example.com/path-to-icon.png" alt="Shopping Cart Icon" class="w-6 h-6 mr-2">
@@ -26,9 +26,9 @@
                 </a>
               </li>
               <li>
-                <a href="#" @click.prevent="toggleWatchlistSidebar" class="hover:text-gray-300 flex items-center">
-                  <img src="https://example.com/path-to-watchlist-icon.png" alt="Watchlist Icon" class="w-6 h-6 mr-2">
-                  Watchlist (<span x-text="watchlist.length"></span>)
+                <a href="#" @click.prevent="toggleWishlistSidebar" class="hover:text-gray-300 flex items-center">
+                  <img src="https://example.com/path-to-wishlist-icon.png" alt="Wishlist Icon" class="w-6 h-6 mr-2">
+                  Wishlist (<span x-text="wishlist.length"></span>)
                 </a>
               </li>
             </ul>
@@ -67,38 +67,21 @@
           </template>
         </div>
 
-        <!-- Cart Summary -->
-        <div class="bg-white rounded-lg shadow-md p-6">
-          <h2 class="text-2xl font-bold mb-4">Cart Summary</h2>
-          <div class="flex justify-between mb-2">
-            <span>Subtotal</span>
-            <span x-text="'$' + calculateSubtotal().toFixed(2)"></span>
-          </div>
-          <div class="flex justify-between mb-2">
-            <span>Tax (10%)</span>
-            <span x-text="'$' + calculateTax().toFixed(2)"></span>
-          </div>
-          <div class="flex justify-between mb-2">
-            <span class="font-bold">Total</span>
-            <span class="font-bold" x-text="'$' + calculateTotal().toFixed(2)"></span>
-          </div>
-          <button @click="checkout" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full mt-4">Proceed to Checkout</button>
-        </div>
-      </main>
+       
 
-      <!-- Watchlist Sidebar -->
+      <!-- Wishlist Sidebar -->
       <div 
-        x-show="showWatchlist" 
-        @click.away="showWatchlist = false"
+        x-show="showWishlist" 
+        @click.away="showWishlist = false"
         class="fixed right-0 top-0 h-full w-64 bg-white shadow-lg p-4 overflow-y-auto"
       >
-        <h2 class="text-xl font-bold mb-4">Watchlist</h2>
-        <template x-for="item in watchlist" :key="item.id">
+        <h2 class="text-xl font-bold mb-4">Wishlist</h2>
+        <template x-for="item in wishlist" :key="item.id">
           <div class="mb-4">
             <h3 x-text="item.title" class="font-semibold"></h3>
             <p x-text="'$' + item.price.toFixed(2)" class="text-gray-600"></p>
             <button 
-              @click="toggleWatchlist(item)"
+              @click="toggleWishlist(item)"
               class="mt-1 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm"
             >Remove</button>
           </div>
@@ -126,13 +109,13 @@
       function cartStore() {
         return {
           cart: [],
-          watchlist: [],
-          showWatchlist: false,
+          wishlist: [],
+          showWishlist: false,
           toastVisible: false,
           toastMessage: '',
           init() {
             this.loadCart();
-            this.loadWatchlist();
+            this.loadWishlist();
           },
           loadCart() {
             const savedCart = localStorage.getItem('cart');
@@ -141,12 +124,12 @@
           saveCart() {
             localStorage.setItem('cart', JSON.stringify(this.cart));
           },
-          loadWatchlist() {
-            const savedWatchlist = localStorage.getItem('watchlist');
-            this.watchlist = savedWatchlist ? JSON.parse(savedWatchlist) : [];
+          loadWishlist() {
+            const savedWishlist = localStorage.getItem('wishlist');
+            this.wishlist = savedWishlist ? JSON.parse(savedWishlist) : [];
           },
-          saveWatchlist() {
-            localStorage.setItem('watchlist', JSON.stringify(this.watchlist));
+          saveWishlist() {
+            localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
           },
           removeFromCart(item) {
             const index = this.cart.findIndex(cartItem => cartItem.id === item.id);
@@ -175,24 +158,19 @@
           calculateTotal() {
             return this.calculateSubtotal() + this.calculateTax();
           },
-          checkout() {
-            // Implement checkout logic here
-            console.log('Proceeding to checkout');
-            this.showToast('Proceeding to checkout...');
-          },
-          toggleWatchlist(item) {
-            const index = this.watchlist.findIndex(watchItem => watchItem.id === item.id);
+          toggleWishlist(item) {
+            const index = this.wishlist.findIndex(wishItem => wishItem.id === item.id);
             if (index !== -1) {
-              this.watchlist.splice(index, 1);
-              this.showToast('Removed from watchlist');
+              this.wishlist.splice(index, 1);
+              this.showToast('Removed from wishlist');
             } else {
-              this.watchlist.push(item);
-              this.showToast('Added to watchlist');
+              this.wishlist.push(item);
+              this.showToast('Added to wishlist');
             }
-            this.saveWatchlist();
+            this.saveWishlist();
           },
-          toggleWatchlistSidebar() {
-            this.showWatchlist = !this.showWatchlist;
+          toggleWishlistSidebar() {
+            this.showWishlist = !this.showWishlist;
           },
           showToast(message) {
             this.toastMessage = message;
