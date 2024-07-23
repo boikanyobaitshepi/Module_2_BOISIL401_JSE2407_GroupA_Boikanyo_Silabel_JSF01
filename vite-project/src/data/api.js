@@ -14,6 +14,8 @@ export const getCategories = async () => {
       return { error: error };
     }
   };
+
+
   
   export const fetchSingleProduct = async (id) => {
     try {
