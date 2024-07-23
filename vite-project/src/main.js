@@ -72,11 +72,3 @@ function toast() {
       }
   }
 }
-
-// Initialize Alpine.js data and components
-document.addEventListener('alpine:init', () => {
-  Alpine.data('productListing', productListing);
-  Alpine.data('productDetail', productDetail);
-  Alpine.data('cart', cart);
-  Alpine.data('toast', toast);
-});
